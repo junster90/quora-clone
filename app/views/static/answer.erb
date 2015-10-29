@@ -1,0 +1,28 @@
+<container>
+
+	<div id="q_title">
+		<h2><%= @question.title %></h2>
+		<p>Asked by: <%= @asker.full_name %></p>
+	</div>
+
+	<div id="q_desc">
+		<p><%= @question.description %></p>
+
+	</div>
+
+	<div id="answers">
+		<h2>What people say:</h2>
+		<ul>
+			<% if @answers.first != nil %>
+				<% @answers.each_with_index do |answer,i| %>
+				<li>
+				<p><%= answer.description %></p>
+				<p>Answered by: <%= @helper[i].full_name %></p>
+				</li>
+				<% end %>
+			<% else %>
+				<p>No one has cracked this nut yet.</p>
+			<% end %>
+		</ul>
+	</div>
+</container>

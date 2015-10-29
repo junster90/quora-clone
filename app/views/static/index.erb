@@ -1,2 +1,11 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<container>
+
+	<div id="question_index">
+		<p>Here are what confused people recently!</p>
+			<ul>
+				<% @questions.each do |question| %>
+				<li><a href="/questions/<%=question.id%>"><%= question.title%></a></li>
+				<% end%>
+			</ul>
+	</div>
+</container>

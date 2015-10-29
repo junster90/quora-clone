@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
 	validates :email, :uniqueness => {:case_sensitive => false}
 	validates :password, length: { in: 6..20 }
 
+	has_many :questions
+	has_many :answers
+
 	def self.authenticate(email,password)
 		user = User.where(email: email).find_by(password: password)
 		return user

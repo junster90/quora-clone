@@ -2,7 +2,7 @@ require 'byebug'
 
 enable :sessions
 
-get '/' do
+get '/hello' do
 	erb :"static/hello"
 
 end
