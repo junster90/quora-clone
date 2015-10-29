@@ -1,0 +1,19 @@
+<container>
+
+	<div>
+		<h1><%= @message %></h1>
+	</div>
+
+	<div>
+		<% if @questions.first == nil %>
+			<p><%= @no_question %></p>
+		<% else %>
+			<p>All questions by <%= @user.full_name%></p>
+			<ul>
+				<% @questions.each do |question| %>
+					<li><a href="/questions/<%=question.id%>"><%= question.title %></a></li>
+				<% end %>
+			</ul>
+		<% end %>
+	</div>
+</container>

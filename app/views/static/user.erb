@@ -1,0 +1,15 @@
+<container>
+
+	<div>
+		<h1><%= @message %></h1>
+	</div>
+
+	<div>
+		<a href="/users/<%=@user.id%>/questions">Find all questions asked by <%= @user.full_name %>!</a>
+	</div>
+
+	<div>
+		<a href="/users/<%=@user.id%>/answers">Find all answers given by <%= @user.full_name %>!</a>
+	</div>
+
+</container>
