@@ -25,4 +25,19 @@
 			<% end %>
 		</ul>
 	</div>
+
+	<% if session[:user_id] == nil %>
+		<div>
+			<h2>Only registered users can answer questions.</h2>
+			<a href="/hello">Join the party!</a> 
+		</div>
+	<% else %>
+		<div id="addanswer">
+			<h2>Submit your answer for this question!</h2>
+			<form method=post action=/<%=@question.id%>/addanswer>
+				<input type=text placeholder="Write your answer here" name="answer[description]"></br>
+				<input type=submit value="Post">
+			</form>
+		</div>
+	<% end %>
 </container>

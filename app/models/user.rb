@@ -12,4 +12,6 @@ class User < ActiveRecord::Base
 		user = User.where(email: email).find_by(password: password)
 		return user
 	end
+
+
 end
