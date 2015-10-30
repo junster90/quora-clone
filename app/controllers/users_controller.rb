@@ -12,10 +12,9 @@ post '/signup' do
 	if @user.save
 		@message = "Thank you for signing up! You may now login."
 	else
-		@user.error
-
-  	erb :"static/index"
-  end
+		@message = "Cannot sign up. Please check email and password format."
+	end
+  	redirect '/'
 end
 
 post '/login' do
@@ -35,7 +34,7 @@ get '/users/:id' do
 	@user = User.find_by_id(params[:id])
 
 	if @user == nil
-		@message = "User not found"
+		redirect '/'
 	else
 		@message = "Name: #{@user.full_name}"
 	end

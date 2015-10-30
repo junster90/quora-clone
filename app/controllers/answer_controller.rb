@@ -4,17 +4,29 @@ get '/questions/:id' do
 	if @question != nil
 		@asker = User.find_by_id(@question.user_id)
 
-		@answers = []
 		@helper = []
 
-		@answers << Answer.find_by(question_id: params[:id])
+		@answers = Answer.where(question_id: params[:id])
 
 		if @answers.first != nil
 			@answers.each do |answer|
-				@helper << User.find_by_id(answer.user_id)
+				@helper << User.find(answer.user_id)
 			end
 		end
-		
+
+		#Voting system for questions
+		@votesq = QuestionVote.where(question_id: params[:id])
+		if @votesq.first == nil
+			@countq = 0
+		else
+			@countq = 0
+			@votesq.each do |vote|
+				@countq += vote.vote_type
+			end
+
+			@votedq = QuestionVote.where(user_id: session[:user_id]).where(question_id: params[:id]).first
+		end
+
 		erb :"static/answer"
 	else
 		redirect '/'

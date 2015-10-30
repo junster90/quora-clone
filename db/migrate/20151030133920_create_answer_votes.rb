@@ -6,5 +6,6 @@ class CreateAnswerVotes < ActiveRecord::Migration
 			t.string :user_id
 
 			t.timestamps null:false
+		end
 	end
 end

@@ -7,7 +7,26 @@
 
 	<div id="q_desc">
 		<p><%= @question.description %></p>
+	</div>
 
+	<div id="votingq">
+		<% if @votedq == nil %>
+			<form method=post action=/<%=@question.id%>/upvoteq>
+				<input type=submit value="Upvote">
+			</form>
+			<p><%= @countq %></p>
+			<form method=post action=/<%=@question.id%>/downvoteq>
+				<input type=submit value="Downvote">
+			</form>
+		<% elsif @votedq.vote_type == 1 %>
+			<p>Upvoted!</p>
+			<p><%= @countq %></p>
+			<p></p>
+		<% elsif @votedq.vote_type == -1 %>
+			<p></p>
+			<p><%= @countq %></p>
+			<p>Downvoted!</p>
+		<% end %>
 	</div>
 
 	<div id="answers">
@@ -15,10 +34,44 @@
 		<ul>
 			<% if @answers.first != nil %>
 				<% @answers.each_with_index do |answer,i| %>
-				<li>
-				<p><%= answer.description %></p>
-				<p>Answered by: <%= @helper[i].full_name %></p>
-				</li>
+					<li>
+						<div>
+							<p><%= answer.description %></p>
+							<p>Answered by: <%= @helper[i].full_name %></p>
+						</div>
+
+						<% @votesa = AnswerVote.where(answer_id: answer.id) %>
+						<% if @votesa.first == nil %>
+						<% @counta = 0 %>
+						<% else %>
+						<% @counta = 0 %>
+						<% @votesa.each do |vote| %>
+						<% @counta += vote.vote_type %>
+						<% end %>
+						<% end %>
+
+						<% @voteda = AnswerVote.where(user_id: session[:user_id]).where(answer_id: answer.id).first %>
+						
+						<div id="votinga">
+							<% if @voteda == nil %>
+								<form method=post action=/<%=@question.id%>/upvotea/<%=answer.id%>>
+									<input type=submit value="Upvote">
+								</form>
+								<p><%= @counta %></p>
+								<form method=post action=/<%=@question.id%>/downvotea/<%=answer.id%>>
+									<input type=submit value="Downvote">
+								</form>
+							<% elsif @voteda.vote_type == 1 %>
+								<p>Upvoted!</p>
+								<p><%= @counta %></p>
+								<p></p>
+							<% elsif @voteda.vote_type == -1 %>
+								<p></p>
+								<p><%= @counta %></p>
+								<p>Downvoted!</p>
+							<% end %>
+						</div>
+					</li>
 				<% end %>
 			<% else %>
 				<p>No one has cracked this nut yet.</p>
