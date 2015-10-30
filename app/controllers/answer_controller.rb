@@ -38,3 +38,24 @@ post '/:id/addanswer' do
 	answer.save
 	redirect "/questions/#{answer.question_id}"
 end
+
+get '/answers/:id/edita' do
+	@answer = Answer.find(params[:id])
+	if current_user.id == @answer.user_id.to_i
+		erb :"static/edit_answer"
+	else
+		redirect '/'
+	end
+end
+
+put '/answers/:id/updatea' do
+	answer = Answer.find(params[:id])
+	answer.update(description: params[:answer][:description])
+	redirect "/questions/#{answer.question_id}"
+end
+
+post '/answers/:id/deletea' do
+	answer = Answer.find(params[:id])
+	answer.destroy
+	redirect "/questions/#{answer.question_id}"
+end

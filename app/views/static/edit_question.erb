@@ -1,0 +1,15 @@
+<h2>Edit your question!</h2>
+
+<form method=post action=/questions/<%=@question.id%>/updateq>
+	<input type=text value="<%= @question.title %>" name="question[title]"></br>
+	<input type=text value="<%= @question.description %>" name="question[description]"></br>
+	<input type=submit value="Post">
+	<input type="hidden" name="_method" value="put">
+</form>
+
+
+
+<p>Or delete this question</p>
+<form method=post action=/questions/<%=@question.id%>/deleteq>
+	<input type=submit value="Delete">
+</form>

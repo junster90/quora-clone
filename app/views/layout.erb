@@ -4,13 +4,13 @@
 		<p>Find your answer today!</p>
 	</div>
 
-<% if session[:user_id] == nil %>
+<% if logged_in? == false %>
 	<div id="hello">
 		<a href="/hello">Join the party!</a> 
 	</div>
 <% else %>
 	<div id="userinfo">
-		<p>Logged in as: <%= User.find_by_id(session[:user_id]).full_name %></p>
+		<p>Logged in as: <%= User.find_by_id(current_user.id).full_name %></p>
 		<form method=post action=/logout>
 			<input type=submit value="Logout">
 		</form>
@@ -20,6 +20,10 @@
 		</form>
 	<div>
 
+	</div>
+
+	<div>
+		<a href="/users/<%=current_user.id%>">My profile</a>
 	</div>
 <%end%>
 	<%= yield%>

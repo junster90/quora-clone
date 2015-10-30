@@ -1,0 +1,14 @@
+<h2>Edit your answer!</h2>
+
+<form method=post action=/answers/<%=@answer.id%>/updatea>
+	<input type=text value="<%= @answer.description %>" name="answer[description]"></br>
+	<input type=submit value="Post">
+	<input type="hidden" name="_method" value="put">
+</form>
+
+
+
+<p>Or delete this answer</p>
+<form method=post action=/answers/<%=@answer.id%>/deletea>
+	<input type=submit value="Delete">
+</form>

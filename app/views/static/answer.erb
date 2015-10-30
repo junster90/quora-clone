@@ -1,12 +1,25 @@
 <container>
 
-	<div id="q_title">
-		<h2><%= @question.title %></h2>
-		<p>Asked by: <%= @asker.full_name %></p>
-	</div>
+	<div id="questionbox">
+		<div id="q_title">
+			<h2><%= @question.title %></h2>
+			<p>Asked by: <%= @asker.full_name %></p>
+		</div>
 
-	<div id="q_desc">
-		<p><%= @question.description %></p>
+		<div id="q_desc">
+			<p><%= @question.description %></p>
+		</div>
+
+		<% if current_user.id == @question.user_id.to_i %>
+			<div id="q_modify">
+				<form method=get action=/questions/<%=@question.id%>/editq>
+					<input type=submit value="Edit">
+				</form>
+				<form method=post action=/questions/<%=@question.id%>/deleteq>
+					<input type=submit value="Delete">
+				</form>
+			</div>
+		<%end%>
 	</div>
 
 	<div id="votingq">
@@ -49,6 +62,17 @@
 						<% @counta += vote.vote_type %>
 						<% end %>
 						<% end %>
+
+						<% if current_user.id == answer.user_id.to_i %>
+							<div id="a_modify">
+								<form method=get action=/answers/<%=answer.id%>/edita>
+									<input type=submit value="Edit">
+								</form>
+								<form method=post action=/answers/<%=answer.id%>/deletea>
+									<input type=submit value="Delete">
+								</form>
+							</div>
+						<%end%>
 
 						<% @voteda = AnswerVote.where(user_id: session[:user_id]).where(answer_id: answer.id).first %>
 						
